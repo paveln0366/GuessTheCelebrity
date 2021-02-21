@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Угадай Знаменитость</string>
-    <string name="photo_of_celebrity">Фото знаменитости</string>
+    <string name="app_name">Угадай Звезду</string>
+    <string name="photo_of_celebrity">Фото звезды</string>
     <string name="answer_wrong">Неверно! Правильный ответ</string>
     <string name="answer_right">Верно</string>
 </resources>
