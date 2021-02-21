@@ -6,9 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,29 +28,46 @@ public class MainActivity extends AppCompatActivity {
     private Button button1;
     private Button button2;
     private Button button3;
-    private ImageView imageViewCelebrity;
+
+    private ImageView imageViewPhoto;
+
     private static final String URL = "https://www.imdb.com/list/ls045252306/";
+
     private ArrayList<String> photos;
     private ArrayList<String> names;
+    private ArrayList<Button> buttons;
+
+    private int numberOfQuestion;
+    private int numberOfRightAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         button0 = findViewById(R.id.button0);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
-        imageViewCelebrity = findViewById(R.id.imageViewCelebrity);
+        imageViewPhoto = findViewById(R.id.imageViewPhoto);
+
         photos = new ArrayList<>();
         names = new ArrayList<>();
+        buttons = new ArrayList<>();
+
+        buttons.add(button0);
+        buttons.add(button1);
+        buttons.add(button2);
+        buttons.add(button3);
+
         getContent();
+        playGame();
     }
 
     private void getContent() {
-        DownloadNameTask downloadNameTask = new DownloadNameTask();
+        DownloadContentTask downloadContentTask = new DownloadContentTask();
         try {
-            String name = downloadNameTask.execute(URL).get();
+            String name = downloadContentTask.execute(URL).get();
             String start = "<h1 class=\"header list-name\">Top 100 Stars of 2018</h1>";
             String finish = "<div class=\"list-create-widget\">";
             Pattern patternContent = Pattern.compile(start + "(.*?)" + finish);
@@ -77,7 +95,50 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private static class DownloadNameTask extends AsyncTask<String, Void, String> {
+    private void playGame() {
+        generateQuestion();
+        DownloadPhotoTask downloadPhotoTask = new DownloadPhotoTask();
+        try {
+            Bitmap photo = downloadPhotoTask.execute(photos.get(numberOfQuestion)).get();
+            if (photo != null) {
+                imageViewPhoto.setImageBitmap(photo);
+                for (int i = 0; i < buttons.size(); i++) {
+                    if (i == numberOfRightAnswer) {
+                        buttons.get(i).setText(names.get(numberOfQuestion));
+                    } else {
+                        int wrongAnswer = generateWrongAnswer();
+                        buttons.get(i).setText(names.get(wrongAnswer));
+                    }
+                }
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void generateQuestion() {
+        numberOfQuestion = (int) (Math.random() * names.size());
+        numberOfRightAnswer = (int) (Math.random() * buttons.size());
+    }
+
+    private int generateWrongAnswer() {
+        return (int) (Math.random() * names.size());
+    }
+
+    public void onClickAnswer(View view) {
+        Button button = (Button) view;
+        String tag = button.getTag().toString();
+        if (Integer.parseInt(tag) == numberOfRightAnswer) {
+            Toast.makeText(this, R.string.answer_right, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.answer_wrong) + " " + names.get(numberOfQuestion), Toast.LENGTH_LONG).show();
+        }
+        playGame();
+    }
+
+    private static class DownloadContentTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
