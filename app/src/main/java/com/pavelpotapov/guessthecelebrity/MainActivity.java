@@ -6,9 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -20,22 +22,25 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button0;
-    private Button button1;
-    private Button button2;
-    private Button button3;
+    private TextView button0;
+    private TextView button1;
+    private TextView button2;
+    private TextView button3;
 
     private ImageView imageViewPhoto;
 
-    private static final String URL = "https://www.imdb.com/list/ls045252306/";
+//    private static final String URL = "https://www.imdb.com/list/ls045252306/";
+    // Новый URL
+    private static final String URL = "https://guessthecelebrity526640109.wordpress.com/";
 
     private ArrayList<String> photos;
     private ArrayList<String> names;
-    private ArrayList<Button> buttons;
+    private ArrayList<TextView> buttons;
 
     private int numberOfQuestion;
     private int numberOfRightAnswer;
@@ -68,24 +73,32 @@ public class MainActivity extends AppCompatActivity {
         DownloadContentTask downloadContentTask = new DownloadContentTask();
         try {
             String name = downloadContentTask.execute(URL).get();
-            String start = "<h1 class=\"header list-name\">Top 100 Stars of 2018</h1>";
-            String finish = "<div class=\"list-create-widget\">";
+//            TimeUnit.SECONDS.sleep(5);
+//            String start = "<h1 class=\"header list-name\">Top 100 Stars of 2018</h1>";
+//            String finish = "<div class=\"list-create-widget\">";
+            String start = "<div class=\"entry-content\">";
+            String finish = "</div><!-- .entry-content -->";
+
+
             Pattern patternContent = Pattern.compile(start + "(.*?)" + finish);
             Matcher matcherContent = patternContent.matcher(name);
             String splitContent = "";
             while (matcherContent.find()) {
                 splitContent = matcherContent.group(1);
             }
-            Pattern patternPhoto = Pattern.compile("src=\"(.*?)\"");
-            Pattern patternName = Pattern.compile("<img alt=\"(.*?)\"");
+//            Pattern patternPhoto = Pattern.compile("src=\"(.*?)\"");
+//            Pattern patternName = Pattern.compile("<img alt=\"(.*?)\"");
+            Pattern patternPhoto = Pattern.compile("data-orig-file=\"(.*?)\" data-orig-size=");
+            Pattern patternName = Pattern.compile("<figcaption>(.*?)</figcaption></figure>");
             Matcher matcherPhoto = patternPhoto.matcher(splitContent);
             Matcher matcherName = patternName.matcher(splitContent);
-
             while (matcherPhoto.find()) {
                 photos.add(matcherPhoto.group(1));
+                Log.d("TAG", matcherPhoto.group(1));
             }
             while (matcherName.find()) {
                 names.add(matcherName.group(1));
+                Log.d("TAG", matcherName.group(1));
             }
 
         } catch (ExecutionException e) {
@@ -128,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickAnswer(View view) {
-        Button button = (Button) view;
+        TextView button = (TextView) view;
         String tag = button.getTag().toString();
         if (Integer.parseInt(tag) == numberOfRightAnswer) {
             Toast.makeText(this, R.string.answer_right, Toast.LENGTH_SHORT).show();
