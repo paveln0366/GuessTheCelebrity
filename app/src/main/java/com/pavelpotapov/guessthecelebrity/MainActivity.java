@@ -9,20 +9,36 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pavelpotapov.guessthecelebrity.di.AppComponent;
+import com.pavelpotapov.guessthecelebrity.di.AppModule;
+import com.pavelpotapov.guessthecelebrity.di.DaggerAppComponent;
+import com.pavelpotapov.guessthecelebrity.di.PresenterModule;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements Contract.View {
 
     private ImageView imageViewPhoto;
     private ArrayList<TextView> buttons;
-    private Contract.Presenter mPresenter;
+
+    // private Contract.Presenter mPresenter;
+    @Inject
+    Contract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // App.appComponent.inject(this);
+        AppComponent appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .presenterModule(new PresenterModule(this))
+                .build();
 
         TextView button0 = findViewById(R.id.button0);
         TextView button1 = findViewById(R.id.button1);
@@ -74,4 +90,5 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
         String tag = button.getTag().toString();
         mPresenter.onClickAnswer(tag);
     }
+
 }
