@@ -33,6 +33,12 @@ class StartActivity : AppCompatActivity() {
             val intent = SettingsActivity.newIntent(this@StartActivity, info)
             startActivity(intent)
         }
+
+        Intent(this, SoundService::class.java).apply {
+            action = "ACTION_PLAY"
+        }.also { intent ->
+            startService(intent)
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -43,7 +49,7 @@ class StartActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Intent(this, SoundService::class.java).apply {
-            action = "ACTION_PLAY"
+            action = "ACTION_RESUME"
         }.also { intent ->
             startService(intent)
         }
@@ -52,7 +58,7 @@ class StartActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         Intent(this, SoundService::class.java).apply {
-            action = "ACTION_STOP"
+            action = "ACTION_PAUSE"
         }.also { intent ->
             startService(intent)
         }
