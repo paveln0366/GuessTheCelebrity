@@ -9,9 +9,6 @@ import com.pavelpotapov.guessthecelebrity.R
 import com.pavelpotapov.guessthecelebrity.services.SoundService
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
 
-private const val ACTIVITY_SETTINGS: String = "ACTIVITY_SETTINGS"
-private const val EXTRA_ACTIVITY_INFO: String = "EXTRA_ACTIVITY_INFO"
-
 class SettingsActivity : AppCompatActivity() {
 
     companion object {
@@ -50,7 +47,6 @@ class SettingsActivity : AppCompatActivity() {
         super.onResume()
         Intent(this, SoundService::class.java).apply {
             action = "ACTION_RESUME"
-//            intent.putExtra(EXTRA_ACTIVITY_INFO, ACTIVITY_SETTINGS)
         }.also { intent ->
             startService(intent)
         }

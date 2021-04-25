@@ -17,6 +17,7 @@ import com.pavelpotapov.guessthecelebrity.di.AppModule;
 import com.pavelpotapov.guessthecelebrity.di.DaggerAppComponent;
 import com.pavelpotapov.guessthecelebrity.di.PresenterModule;
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityGameBinding;
+import com.pavelpotapov.guessthecelebrity.services.SoundService;
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode;
 
 import java.util.ArrayList;
@@ -105,8 +106,22 @@ public class GameActivity extends AppCompatActivity implements Contract.View {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             ScreenMode.Companion.hideSystemUI(getWindow());
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Intent intent = new Intent(this, SoundService.class);
+        intent.setAction("ACTION_RESUME");
+        startService(intent);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Intent intent = new Intent(this, SoundService.class);
+        intent.setAction("ACTION_PAUSE");
+        startService(intent);
     }
 }
