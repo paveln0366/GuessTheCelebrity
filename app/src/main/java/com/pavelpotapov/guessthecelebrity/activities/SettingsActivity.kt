@@ -6,7 +6,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import com.pavelpotapov.guessthecelebrity.R
+import com.pavelpotapov.guessthecelebrity.services.SoundService
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
+
+private const val ACTIVITY_SETTINGS: String = "ACTIVITY_SETTINGS"
+private const val EXTRA_ACTIVITY_INFO: String = "EXTRA_ACTIVITY_INFO"
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -40,5 +44,24 @@ class SettingsActivity : AppCompatActivity() {
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) ScreenMode.hideSystemUI(window)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Intent(this, SoundService::class.java).apply {
+            action = "ACTION_RESUME"
+//            intent.putExtra(EXTRA_ACTIVITY_INFO, ACTIVITY_SETTINGS)
+        }.also { intent ->
+            startService(intent)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Intent(this, SoundService::class.java).apply {
+            action = "ACTION_PAUSE"
+        }.also { intent ->
+            startService(intent)
+        }
     }
 }
