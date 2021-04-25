@@ -4,23 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/purple_200"
+    tools:context=".GameActivity">
 
     <TextView
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:background="@drawable/ic_button"
         android:id="@+id/button3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        style="@style/TextAnswerStyle"
         android:onClick="onClickAnswer"
         android:tag="3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,19 +19,8 @@
         tools:text="Button 3" />
 
     <TextView
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:background="@drawable/ic_button"
         android:id="@+id/button2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        style="@style/TextAnswerStyle"
         android:onClick="onClickAnswer"
         android:tag="2"
         app:layout_constraintBottom_toTopOf="@id/button3"
@@ -52,19 +30,8 @@
         tools:text="Button 2" />
 
     <TextView
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:background="@drawable/ic_button"
         android:id="@+id/button1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        style="@style/TextAnswerStyle"
         android:onClick="onClickAnswer"
         android:tag="1"
         app:layout_constraintBottom_toTopOf="@id/button2"
@@ -74,39 +41,23 @@
         tools:text="Button 1" />
 
     <TextView
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:background="@drawable/ic_button"
         android:id="@+id/button0"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:contentDescription="@string/photo_of_celebrity"
+        style="@style/TextAnswerStyle"
+
         android:onClick="onClickAnswer"
         android:tag="0"
+        app:layout_constraintBottom_toTopOf="@id/button1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintBottom_toTopOf="@id/button1"
         tools:text="Button 0" />
 
     <ImageView
         android:id="@+id/imageViewPhoto"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/photo_of_celebrity"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,5 +69,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.50"/>
+        app:layout_constraintGuide_percent="0.50" />
 </androidx.constraintlayout.widget.ConstraintLayout>

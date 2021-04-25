@@ -1,7 +1,7 @@
 package com.pavelpotapov.guessthecelebrity.di
 
 import com.pavelpotapov.guessthecelebrity.Contract
-import com.pavelpotapov.guessthecelebrity.MainActivity
+import com.pavelpotapov.guessthecelebrity.GameActivity
 import com.pavelpotapov.guessthecelebrity.Presenter
 import dagger.Module
 import dagger.Provides
@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull
 import javax.inject.Singleton
 
 @Module
-class PresenterModule(activity: MainActivity) {
+class PresenterModule(activity: GameActivity) {
 
-    private val activity: MainActivity = activity
+    private val activity: GameActivity = activity
 
     @Provides
     @Singleton

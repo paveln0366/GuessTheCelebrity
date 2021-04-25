@@ -1,8 +1,11 @@
 package com.pavelpotapov.guessthecelebrity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +16,8 @@ import com.pavelpotapov.guessthecelebrity.di.AppComponent;
 import com.pavelpotapov.guessthecelebrity.di.AppModule;
 import com.pavelpotapov.guessthecelebrity.di.DaggerAppComponent;
 import com.pavelpotapov.guessthecelebrity.di.PresenterModule;
+import com.pavelpotapov.guessthecelebrity.databinding.ActivityGameBinding;
+import com.pavelpotapov.guessthecelebrity.utils.ScreenMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +25,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements Contract.View {
+public class GameActivity extends AppCompatActivity implements Contract.View {
 
+    private static final String EXTRA_INFO = "info";
+    private ActivityGameBinding binding;
     private ImageView imageViewPhoto;
-    private ArrayList<TextView> buttons;
+    private ArrayList<TextView> listOfAnswerButtons;
 
     // private Contract.Presenter mPresenter;
     @Inject
@@ -32,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityGameBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // App.appComponent.inject(this);
         AppComponent appComponent = DaggerAppComponent.builder()
@@ -40,17 +48,11 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
                 .presenterModule(new PresenterModule(this))
                 .build();
 
-        TextView button0 = findViewById(R.id.button0);
-        TextView button1 = findViewById(R.id.button1);
-        TextView button2 = findViewById(R.id.button2);
-        TextView button3 = findViewById(R.id.button3);
-        buttons = new ArrayList<>();
-        buttons.add(button0);
-        buttons.add(button1);
-        buttons.add(button2);
-        buttons.add(button3);
-
-        imageViewPhoto = findViewById(R.id.imageViewPhoto);
+        listOfAnswerButtons = new ArrayList<>();
+        listOfAnswerButtons.add(binding.button0);
+        listOfAnswerButtons.add(binding.button1);
+        listOfAnswerButtons.add(binding.button2);
+        listOfAnswerButtons.add(binding.button3);
 
         mPresenter = new Presenter(this);
         mPresenter.startGame();
@@ -64,9 +66,9 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
             photo = key;
             variantOfAnswers = question.get(key);
         }
-        imageViewPhoto.setImageBitmap(photo);
-        for (int i = 0; i < buttons.size(); i++) {
-            TextView button = buttons.get(i);
+        binding.imageViewPhoto.setImageBitmap(photo);
+        for (int i = 0; i < listOfAnswerButtons.size(); i++) {
+            TextView button = listOfAnswerButtons.get(i);
             button.setText(variantOfAnswers.get(i));
         }
     }
@@ -76,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
         if (answer.containsKey(true)) {
             Toast.makeText(this, R.string.answer_right, Toast.LENGTH_SHORT).show();
         } else if (answer.containsKey(false)) {
-            Toast.makeText(this, getString(R.string.answer_wrong) + " " + answer.get(false), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.answer_wrong) +
+                    " " + answer.get(false), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -91,4 +94,19 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
         mPresenter.onClickAnswer(tag);
     }
 
+    public static Intent newIntent(Context context, String info) {
+        Intent intent = new Intent(context, GameActivity.class);
+        intent.putExtra(EXTRA_INFO, info);
+        return intent;
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            ScreenMode.Companion.hideSystemUI(getWindow());
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
 }
