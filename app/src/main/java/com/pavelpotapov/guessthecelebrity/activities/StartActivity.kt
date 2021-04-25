@@ -1,11 +1,15 @@
 package com.pavelpotapov.guessthecelebrity.activities
 
+import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.pavelpotapov.guessthecelebrity.GameActivity
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding
+import com.pavelpotapov.guessthecelebrity.services.SoundService
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
 
 class StartActivity : AppCompatActivity() {
@@ -34,5 +38,23 @@ class StartActivity : AppCompatActivity() {
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) ScreenMode.hideSystemUI(window)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Intent(this, SoundService::class.java).apply {
+            action = "ACTION_PLAY"
+        }.also { intent ->
+            startService(intent)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Intent(this, SoundService::class.java).apply {
+            action = "ACTION_STOP"
+        }.also { intent ->
+            startService(intent)
+        }
     }
 }
