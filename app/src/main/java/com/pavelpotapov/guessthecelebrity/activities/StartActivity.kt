@@ -29,11 +29,11 @@ class StartActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnSettings.setOnClickListener {
-            val info = "info"
-            val intent = SettingsActivity.newIntent(this@StartActivity, info)
-            startActivity(intent)
-        }
+//        binding.btnSettings.setOnClickListener {
+//            val info = "info"
+//            val intent = SettingsActivity.newIntent(this@StartActivity, info)
+//            startActivity(intent)
+//        }
 
         binding.btnVolume.setOnClickListener {
             it as Button

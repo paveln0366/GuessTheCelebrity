@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
+    android:background="@drawable/background"
     tools:context=".GameActivity">
 
-    <TextView
+    <Button
         android:id="@+id/button3"
         style="@style/TextAnswerStyle"
         android:onClick="onClickAnswer"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button2"
         tools:text="Button 3" />
 
-    <TextView
+    <Button
         android:id="@+id/button2"
         style="@style/TextAnswerStyle"
         android:onClick="onClickAnswer"
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button1"
         tools:text="Button 2" />
 
-    <TextView
+    <Button
         android:id="@+id/button1"
         style="@style/TextAnswerStyle"
         android:onClick="onClickAnswer"
@@ -40,10 +40,9 @@
         app:layout_constraintTop_toBottomOf="@+id/button0"
         tools:text="Button 1" />
 
-    <TextView
+    <Button
         android:id="@+id/button0"
         style="@style/TextAnswerStyle"
-
         android:onClick="onClickAnswer"
         android:tag="0"
         app:layout_constraintBottom_toTopOf="@id/button1"
