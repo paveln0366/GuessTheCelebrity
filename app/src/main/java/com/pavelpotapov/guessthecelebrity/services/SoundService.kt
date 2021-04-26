@@ -11,10 +11,13 @@ private const val ACTION_PAUSE: String = "ACTION_PAUSE"
 private const val ACTION_RESUME: String = "ACTION_RESUME"
 private const val ACTION_STOP: String = "ACTION_STOP"
 
+private const val ACTION_SWITCH_SOUND: String = "ACTION_SWITCH_SOUND"
+
 class SoundService : Service(), MediaPlayer.OnPreparedListener {
     private var player = MediaPlayer()
     private var position: Int = 0
     private var numberCallResume = 0
+    private var volume = true
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
@@ -23,7 +26,7 @@ class SoundService : Service(), MediaPlayer.OnPreparedListener {
                     val afd = applicationContext.assets.openFd("sound_0.mp3")
                     player.setDataSource(afd.fileDescriptor, afd.startOffset, afd.length)
                     player.isLooping = true
-                    player.setVolume(100f, 100f)
+                    player.setVolume(1.0f, 1.0f)
                     setOnPreparedListener(this@SoundService)
                     prepareAsync()
                 }
@@ -46,6 +49,15 @@ class SoundService : Service(), MediaPlayer.OnPreparedListener {
             ACTION_STOP -> {
                 stopService(intent)
             }
+            ACTION_SWITCH_SOUND -> {
+                if (volume) {
+                    volumeOFF()
+                    volume = false
+                } else if (!volume) {
+                    volumeON()
+                    volume = true
+                }
+            }
         }
         return START_STICKY
     }
@@ -67,5 +79,13 @@ class SoundService : Service(), MediaPlayer.OnPreparedListener {
     override fun onDestroy() {
         super.onDestroy()
         player.release()
+    }
+
+    private fun volumeOFF() {
+        player.setVolume(0.0f, 0.0f)
+    }
+
+    private fun volumeON() {
+        player.setVolume(1.0f, 1.0f)
     }
 }

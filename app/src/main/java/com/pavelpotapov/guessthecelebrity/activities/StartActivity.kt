@@ -3,9 +3,11 @@ package com.pavelpotapov.guessthecelebrity.activities
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.pavelpotapov.guessthecelebrity.GameActivity
+import com.pavelpotapov.guessthecelebrity.R
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding
 import com.pavelpotapov.guessthecelebrity.services.SoundService
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
@@ -13,6 +15,7 @@ import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
 class StartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStartBinding
+    private var volume = true
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +33,25 @@ class StartActivity : AppCompatActivity() {
             val info = "info"
             val intent = SettingsActivity.newIntent(this@StartActivity, info)
             startActivity(intent)
+        }
+
+        binding.btnVolume.setOnClickListener {
+            it as Button
+            if (volume) {
+                it.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_lock_silent_mode, 0, 0, 0)
+//                it.setBackgroundResource(android.R.drawable.ic_lock_silent_mode)
+                volume = false
+            } else if (!volume) {
+                it.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_lock_silent_mode_off, 0, 0, 0)
+//                it.setBackgroundColor(getResources().getColor(android.R.color.white)
+//                it.setBackgroundResource(android.R.drawable.ic_lock_silent_mode_off)
+                volume = true
+            }
+            Intent(this, SoundService::class.java).apply {
+                action = "ACTION_SWITCH_SOUND"
+            }.also { intent ->
+                startService(intent)
+            }
         }
 
         Intent(this, SoundService::class.java).apply {
