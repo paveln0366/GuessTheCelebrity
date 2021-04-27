@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pavelpotapov.guessthecelebrity.GameActivity
 import com.pavelpotapov.guessthecelebrity.R
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding
+import com.pavelpotapov.guessthecelebrity.fragments.SettingsFragment
 import com.pavelpotapov.guessthecelebrity.services.SoundService
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
 
@@ -16,10 +17,13 @@ class StartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStartBinding
     private var volume = true
+    private val settingsFragment = SettingsFragment()
+    val fm = supportFragmentManager
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -29,11 +33,9 @@ class StartActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        binding.btnSettings.setOnClickListener {
-//            val info = "info"
-//            val intent = SettingsActivity.newIntent(this@StartActivity, info)
-//            startActivity(intent)
-//        }
+        binding.btnSettings.setOnClickListener {
+            settingsFragment.show(fm, "tag")
+        }
 
         binding.btnVolume.setOnClickListener {
             it as Button
