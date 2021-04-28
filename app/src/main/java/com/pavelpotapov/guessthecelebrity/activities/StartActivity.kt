@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Switch
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.pavelpotapov.guessthecelebrity.GameActivity
 import com.pavelpotapov.guessthecelebrity.R
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding
@@ -13,12 +15,10 @@ import com.pavelpotapov.guessthecelebrity.fragments.SettingsFragment
 import com.pavelpotapov.guessthecelebrity.services.SoundService
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
 
-class StartActivity : AppCompatActivity() {
+class StartActivity : AppCompatActivity(), SettingsFragment.SettingsDialogListener {
 
     private lateinit var binding: ActivityStartBinding
     private var volume = true
-    private val settingsFragment = SettingsFragment()
-    val fm = supportFragmentManager
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,8 @@ class StartActivity : AppCompatActivity() {
         }
 
         binding.btnSettings.setOnClickListener {
-            settingsFragment.show(fm, "tag")
+            val dialog = SettingsFragment()
+            dialog.show(supportFragmentManager, "SettingsFragment")
         }
 
         binding.btnVolume.setOnClickListener {
@@ -84,5 +85,13 @@ class StartActivity : AppCompatActivity() {
         }.also { intent ->
             startService(intent)
         }
+    }
+
+    override fun onDialogSaveClick(dialog: DialogFragment) {
+        dialog.dismiss()
+    }
+
+    override fun onDialogCancelClick(dialog: DialogFragment) {
+        dialog.dismiss()
     }
 }
