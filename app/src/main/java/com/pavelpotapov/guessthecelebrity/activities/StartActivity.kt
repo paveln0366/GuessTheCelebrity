@@ -3,13 +3,10 @@ package com.pavelpotapov.guessthecelebrity.activities
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Button
-import android.widget.RelativeLayout
-import android.widget.Switch
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -46,6 +43,9 @@ class StartActivity : AppCompatActivity() {
             settingsDialog.setCanceledOnTouchOutside(false)
             settingsDialog.setCancelable(false)
             settingsDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            settingsDialog.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+
 
             btnSave.setOnClickListener {
                 Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show()
@@ -58,6 +58,9 @@ class StartActivity : AppCompatActivity() {
             }
 
             settingsDialog.show()
+
+            settingsDialog.window?.let { window -> ScreenMode.hideSystemUI(window) }
+            settingsDialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
         }
 
         binding.btnVolume.setOnClickListener {
