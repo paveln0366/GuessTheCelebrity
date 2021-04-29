@@ -5,17 +5,18 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Switch
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
+import androidx.appcompat.widget.SwitchCompat
 import com.pavelpotapov.guessthecelebrity.GameActivity
 import com.pavelpotapov.guessthecelebrity.R
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding
-import com.pavelpotapov.guessthecelebrity.fragments.SettingsFragment
 import com.pavelpotapov.guessthecelebrity.services.SoundService
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
 
-class StartActivity : AppCompatActivity(), SettingsFragment.SettingsDialogListener {
+class StartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStartBinding
     private var volume = true
@@ -34,8 +35,26 @@ class StartActivity : AppCompatActivity(), SettingsFragment.SettingsDialogListen
         }
 
         binding.btnSettings.setOnClickListener {
-            val dialog = SettingsFragment()
-            dialog.show(supportFragmentManager, "SettingsFragment")
+            val view = layoutInflater.inflate(R.layout.dialog_settings, null)
+            val switchMusic = view.findViewById<SwitchCompat>(R.id.switchMusic)
+            val switchNotifications = view.findViewById<SwitchCompat>(R.id.switchNotifications)
+            val btnSave = view.findViewById<Button>(R.id.btnSave)
+            val btnCancel = view.findViewById<Button>(R.id.btnCancel)
+            val settingsDialog = AlertDialog.Builder(this).setView(view).create()
+
+            btnSave.setOnClickListener {
+                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show()
+                settingsDialog.setCanceledOnTouchOutside(false)
+                settingsDialog.setCancelable(false)
+                settingsDialog.dismiss()
+            }
+
+            btnCancel.setOnClickListener {
+                Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show()
+                settingsDialog.dismiss()
+            }
+
+            settingsDialog.show()
         }
 
         binding.btnVolume.setOnClickListener {
@@ -85,13 +104,5 @@ class StartActivity : AppCompatActivity(), SettingsFragment.SettingsDialogListen
         }.also { intent ->
             startService(intent)
         }
-    }
-
-    override fun onDialogSaveClick(dialog: DialogFragment) {
-        dialog.dismiss()
-    }
-
-    override fun onDialogCancelClick(dialog: DialogFragment) {
-        dialog.dismiss()
     }
 }

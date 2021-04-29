@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background"
     android:orientation="vertical">
 
@@ -11,6 +11,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:background="@drawable/background_title"
         android:gravity="center"
         android:text="@string/settings"
         android:textColor="@color/white"
@@ -18,14 +19,14 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/background_title"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/switchMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:checked="true"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +34,7 @@
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Switch
-        android:id="@+id/switchSound"
+        android:id="@+id/switchNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -47,24 +48,26 @@
         android:id="@+id/btnCancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/cancel"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toStartOf="@+id/btnSave"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/switchSound" />
+        app:layout_constraintTop_toBottomOf="@id/switchNotifications" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Save"
+        android:text="@string/save"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -74,26 +77,27 @@
         app:layout_constraintTop_toTopOf="@+id/btnCancel" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Music"
+        android:layout_margin="8dp"
+        android:text="@string/music"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notifications"
+        android:layout_margin="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/notifications"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMusic" />
 </androidx.constraintlayout.widget.ConstraintLayout>
