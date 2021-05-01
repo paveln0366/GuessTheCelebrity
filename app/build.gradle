@@ -58,6 +58,3 @@ dependencies {
     // Kotlin
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 }
-repositories {
-    mavenCentral()
-}

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
 import android.util.Log
+import androidx.preference.PreferenceManager
 
 private const val ACTION_PLAY: String = "ACTION_PLAY"
 private const val ACTION_PAUSE: String = "ACTION_PAUSE"
@@ -17,7 +18,9 @@ class SoundService : Service(), MediaPlayer.OnPreparedListener {
     private var player = MediaPlayer()
     private var position: Int = 0
     private var numberCallResume = 0
+//    private val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
     private var volume = true
+//    private var volume = preferences.getBoolean("volume", true)
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
