@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.networkTasks;
+package com.pavelpotapov.guessthecelebrity.utils;
 
 import android.os.AsyncTask;
 

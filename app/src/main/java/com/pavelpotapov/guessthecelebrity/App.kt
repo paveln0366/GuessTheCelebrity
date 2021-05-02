@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.di
+package com.pavelpotapov.guessthecelebrity
 
 import android.app.Application
 

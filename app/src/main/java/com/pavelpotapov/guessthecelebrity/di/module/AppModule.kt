@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.di
+package com.pavelpotapov.guessthecelebrity.di.module
 
 import android.content.Context
 import dagger.Module

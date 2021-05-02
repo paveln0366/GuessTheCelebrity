@@ -1,23 +1,25 @@
-package com.pavelpotapov.guessthecelebrity;
+package com.pavelpotapov.guessthecelebrity.presentation.activity.game;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pavelpotapov.guessthecelebrity.di.AppComponent;
-import com.pavelpotapov.guessthecelebrity.di.AppModule;
-import com.pavelpotapov.guessthecelebrity.di.DaggerAppComponent;
-import com.pavelpotapov.guessthecelebrity.di.PresenterModule;
+import com.pavelpotapov.guessthecelebrity.presentation.activity.start.StartPresenter;
+import com.pavelpotapov.guessthecelebrity.R;
+import com.pavelpotapov.guessthecelebrity.di.component.AppComponent;
+import com.pavelpotapov.guessthecelebrity.di.module.AppModule;
+import com.pavelpotapov.guessthecelebrity.di.component.DaggerAppComponent;
+import com.pavelpotapov.guessthecelebrity.di.module.PresenterModule;
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityGameBinding;
-import com.pavelpotapov.guessthecelebrity.services.SoundService;
+import com.pavelpotapov.guessthecelebrity.presentation.activity.start.StartContract;
+import com.pavelpotapov.guessthecelebrity.utils.services.SoundService;
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class GameActivity extends AppCompatActivity implements Contract.View {
+public class GameActivity extends AppCompatActivity implements StartContract.View {
 
     private static final String EXTRA_INFO = "info";
     private ActivityGameBinding binding;
@@ -35,7 +37,7 @@ public class GameActivity extends AppCompatActivity implements Contract.View {
 
     // private Contract.Presenter mPresenter;
     @Inject
-    Contract.Presenter mPresenter;
+    StartContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class GameActivity extends AppCompatActivity implements Contract.View {
         listOfAnswerButtons.add(binding.button2);
         listOfAnswerButtons.add(binding.button3);
 
-        mPresenter = new Presenter(this);
+        mPresenter = new StartPresenter(this);
         mPresenter.startGame();
     }
 

@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.networkTasks;
+package com.pavelpotapov.guessthecelebrity.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

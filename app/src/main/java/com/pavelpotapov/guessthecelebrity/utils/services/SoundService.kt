@@ -1,11 +1,10 @@
-package com.pavelpotapov.guessthecelebrity.services
+package com.pavelpotapov.guessthecelebrity.utils.services
 
 import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
 import android.util.Log
-import androidx.preference.PreferenceManager
 
 private const val ACTION_PLAY: String = "ACTION_PLAY"
 private const val ACTION_PAUSE: String = "ACTION_PAUSE"

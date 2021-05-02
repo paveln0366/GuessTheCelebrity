@@ -1,10 +1,11 @@
-package com.pavelpotapov.guessthecelebrity;
+package com.pavelpotapov.guessthecelebrity.repository;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.pavelpotapov.guessthecelebrity.networkTasks.DownloadContentTask;
-import com.pavelpotapov.guessthecelebrity.networkTasks.DownloadPhotoTask;
+import com.pavelpotapov.guessthecelebrity.presentation.activity.start.StartContract;
+import com.pavelpotapov.guessthecelebrity.utils.DownloadContentTask;
+import com.pavelpotapov.guessthecelebrity.utils.DownloadPhotoTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Repository implements Contract.Repository {
+public class AppRepository implements StartContract.Repository {
     private static final String URL = "https://guessthecelebrity526640109.wordpress.com/";
     private static final int NUMBER_OF_ANSWERS = 4;
 
@@ -24,7 +25,7 @@ public class Repository implements Contract.Repository {
     private int indexOfRightName;
     private int indexOfRightButton;
 
-    public Repository() {
+    public AppRepository() {
         getContent();
     }
 

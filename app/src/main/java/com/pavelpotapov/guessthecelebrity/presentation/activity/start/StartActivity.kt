@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.activities
+package com.pavelpotapov.guessthecelebrity.presentation.activity.start
 
 import android.content.Intent
 import android.graphics.Color
@@ -11,10 +11,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.preference.PreferenceManager
-import com.pavelpotapov.guessthecelebrity.GameActivity
 import com.pavelpotapov.guessthecelebrity.R
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding
-import com.pavelpotapov.guessthecelebrity.services.SoundService
+import com.pavelpotapov.guessthecelebrity.presentation.activity.game.GameActivity
+import com.pavelpotapov.guessthecelebrity.utils.services.SoundService
 import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
 
 class StartActivity : AppCompatActivity() {
