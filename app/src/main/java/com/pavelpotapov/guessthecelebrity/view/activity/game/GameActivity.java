@@ -11,16 +11,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pavelpotapov.guessthecelebrity.presenter.start.StartPresenter;
+import com.pavelpotapov.guessthecelebrity.presenter.activity.game.GamePresenter;
 import com.pavelpotapov.guessthecelebrity.R;
 import com.pavelpotapov.guessthecelebrity.di.component.AppComponent;
 import com.pavelpotapov.guessthecelebrity.di.module.AppModule;
 import com.pavelpotapov.guessthecelebrity.di.component.DaggerAppComponent;
 import com.pavelpotapov.guessthecelebrity.di.module.PresenterModule;
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityGameBinding;
-import com.pavelpotapov.guessthecelebrity.AppContract;
-import com.pavelpotapov.guessthecelebrity.utils.SoundService;
-import com.pavelpotapov.guessthecelebrity.utils.ScreenMode;
+import com.pavelpotapov.guessthecelebrity.presenter.activity.game.IGamePresenter;
+import com.pavelpotapov.guessthecelebrity.service.SoundService;
+import com.pavelpotapov.guessthecelebrity.util.ScreenMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class GameActivity extends AppCompatActivity implements AppContract.View {
+public class GameActivity extends AppCompatActivity implements IGameActivity {
 
     private static final String EXTRA_INFO = "info";
     private ActivityGameBinding binding;
@@ -37,13 +37,14 @@ public class GameActivity extends AppCompatActivity implements AppContract.View 
 
     // private Contract.Presenter mPresenter;
     @Inject
-    AppContract.Presenter mPresenter;
+    IGamePresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityGameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         // App.appComponent.inject(this);
         AppComponent appComponent = DaggerAppComponent.builder()
@@ -57,7 +58,7 @@ public class GameActivity extends AppCompatActivity implements AppContract.View 
         listOfAnswerButtons.add(binding.button2);
         listOfAnswerButtons.add(binding.button3);
 
-        mPresenter = new StartPresenter(this);
+        mPresenter = new GamePresenter(this);
         mPresenter.startGame();
     }
 

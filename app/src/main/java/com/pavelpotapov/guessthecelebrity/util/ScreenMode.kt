@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.utils
+package com.pavelpotapov.guessthecelebrity.util
 
 import android.os.Build
 import android.view.View

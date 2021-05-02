@@ -14,8 +14,8 @@ import androidx.preference.PreferenceManager
 import com.pavelpotapov.guessthecelebrity.R
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding
 import com.pavelpotapov.guessthecelebrity.view.activity.game.GameActivity
-import com.pavelpotapov.guessthecelebrity.utils.SoundService
-import com.pavelpotapov.guessthecelebrity.utils.ScreenMode
+import com.pavelpotapov.guessthecelebrity.service.SoundService
+import com.pavelpotapov.guessthecelebrity.util.ScreenMode
 
 class StartActivity : AppCompatActivity() {
 

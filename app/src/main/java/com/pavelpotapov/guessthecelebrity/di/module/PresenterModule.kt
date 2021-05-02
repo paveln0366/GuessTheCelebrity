@@ -1,8 +1,8 @@
 package com.pavelpotapov.guessthecelebrity.di.module
 
-import com.pavelpotapov.guessthecelebrity.AppContract
 import com.pavelpotapov.guessthecelebrity.view.activity.game.GameActivity
-import com.pavelpotapov.guessthecelebrity.presenter.start.StartPresenter
+import com.pavelpotapov.guessthecelebrity.presenter.activity.game.GamePresenter
+import com.pavelpotapov.guessthecelebrity.presenter.activity.game.IGamePresenter
 import dagger.Module
 import dagger.Provides
 import org.jetbrains.annotations.NotNull
@@ -16,7 +16,7 @@ class PresenterModule(activity: GameActivity) {
     @Provides
     @Singleton
     @NotNull
-    fun providePresenter(): AppContract.Presenter {
-        return StartPresenter(activity)
+    fun providePresenter(): IGamePresenter {
+        return GamePresenter(activity)
     }
 }

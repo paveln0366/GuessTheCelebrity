@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".view.activity.game.GameActivity" />
 
-        <service android:name="com.pavelpotapov.guessthecelebrity.utils.SoundService" />
+        <service android:name="com.pavelpotapov.guessthecelebrity.service.SoundService" />
     </application>
 
 </manifest>
