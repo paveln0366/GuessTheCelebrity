@@ -108,7 +108,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            ScreenMode.Companion.hideSystemUI(getWindow());
+            ScreenMode.hideSystemUI(getWindow());
         }
     }
 
@@ -116,7 +116,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
     public void onResume() {
         super.onResume();
         Intent intent = new Intent(this, SoundService.class);
-        intent.setAction("ACTION_RESUME");
+        intent.setAction("resume");
         startService(intent);
     }
 
@@ -124,7 +124,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
     public void onPause() {
         super.onPause();
         Intent intent = new Intent(this, SoundService.class);
-        intent.setAction("ACTION_PAUSE");
+        intent.setAction("pause");
         startService(intent);
     }
 }

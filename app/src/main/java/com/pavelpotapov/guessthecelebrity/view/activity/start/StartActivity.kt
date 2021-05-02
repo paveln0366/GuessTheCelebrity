@@ -63,7 +63,7 @@ class StartActivity : AppCompatActivity() {
                     preferences.edit().putBoolean("volume", true).apply()
                 }
                 Intent(this, SoundService::class.java).apply {
-                    action = "ACTION_SWITCH_SOUND"
+                    action = "switch"
                 }.also { intent ->
                     startService(intent)
                 }
@@ -105,7 +105,7 @@ class StartActivity : AppCompatActivity() {
 //        }
 
         Intent(this, SoundService::class.java).apply {
-            action = "ACTION_PLAY"
+            action = "play"
         }.also { intent ->
             startService(intent)
         }
@@ -119,7 +119,7 @@ class StartActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Intent(this, SoundService::class.java).apply {
-            action = "ACTION_RESUME"
+            action = "resume"
         }.also { intent ->
             startService(intent)
         }
@@ -128,7 +128,7 @@ class StartActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         Intent(this, SoundService::class.java).apply {
-            action = "ACTION_PAUSE"
+            action = "pause"
         }.also { intent ->
             startService(intent)
         }
