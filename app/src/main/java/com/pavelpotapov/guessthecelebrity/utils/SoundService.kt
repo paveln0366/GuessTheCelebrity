@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.utils.services
+package com.pavelpotapov.guessthecelebrity.utils
 
 import android.app.Service
 import android.content.Intent

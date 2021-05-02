@@ -1,9 +1,9 @@
-package com.pavelpotapov.guessthecelebrity.repository;
+package com.pavelpotapov.guessthecelebrity.model;
 
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.pavelpotapov.guessthecelebrity.presentation.activity.start.StartContract;
+import com.pavelpotapov.guessthecelebrity.AppContract;
 import com.pavelpotapov.guessthecelebrity.utils.DownloadContentTask;
 import com.pavelpotapov.guessthecelebrity.utils.DownloadPhotoTask;
 
@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AppRepository implements StartContract.Repository {
+public class AppRepository implements AppContract.Repository {
     private static final String URL = "https://guessthecelebrity526640109.wordpress.com/";
     private static final int NUMBER_OF_ANSWERS = 4;
 

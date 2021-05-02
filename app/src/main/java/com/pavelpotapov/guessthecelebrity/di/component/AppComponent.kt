@@ -1,6 +1,6 @@
 package com.pavelpotapov.guessthecelebrity.di.component
 
-import com.pavelpotapov.guessthecelebrity.presentation.activity.game.GameActivity
+import com.pavelpotapov.guessthecelebrity.view.activity.game.GameActivity
 import com.pavelpotapov.guessthecelebrity.di.module.AppModule
 import com.pavelpotapov.guessthecelebrity.di.module.PresenterModule
 import dagger.Component

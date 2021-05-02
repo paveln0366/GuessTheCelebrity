@@ -1,18 +1,19 @@
-package com.pavelpotapov.guessthecelebrity.presentation.activity.start;
+package com.pavelpotapov.guessthecelebrity.presenter.start;
 
 import android.graphics.Bitmap;
 
-import com.pavelpotapov.guessthecelebrity.repository.AppRepository;
+import com.pavelpotapov.guessthecelebrity.AppContract;
+import com.pavelpotapov.guessthecelebrity.model.AppRepository;
 
 import java.util.List;
 import java.util.Map;
 
-public class StartPresenter implements StartContract.Presenter {
+public class StartPresenter implements AppContract.Presenter {
 
-    private StartContract.View mView;
-    private StartContract.Repository mRepository;
+    private AppContract.View mView;
+    private AppContract.Repository mRepository;
 
-    public StartPresenter(StartContract.View mView) {
+    public StartPresenter(AppContract.View mView) {
         this.mView = mView;
         this.mRepository = new AppRepository();
     }
