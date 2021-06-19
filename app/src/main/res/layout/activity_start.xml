@@ -52,14 +52,16 @@
         style="@style/TextStyle"
         android:text="@string/best_score"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvScore"
         style="@style/TextStyle"
         app:layout_constraintStart_toEndOf="@+id/tvScoreTitle"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="15" />
+        tools:text="15"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnVolume"
@@ -68,7 +70,8 @@
         android:layout_margin="8dp"
         android:drawableLeft="@android:drawable/ic_lock_silent_mode_off"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 <!--    android:background="@android:drawable/ic_lock_silent_mode_off"-->
