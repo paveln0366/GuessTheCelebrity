@@ -60,7 +60,7 @@ public class StartActivity extends AppCompatActivity {
                 switchMusic.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(StartActivity.this, "Switch", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(StartActivity.this, "Switch", Toast.LENGTH_SHORT).show();
                         if (volume == true) {
                             switchMusic.setChecked(false);
                             volume = false;
@@ -77,7 +77,7 @@ public class StartActivity extends AppCompatActivity {
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(StartActivity.this, "Save", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(StartActivity.this, "Save", Toast.LENGTH_SHORT).show();
                         settingsDialog.dismiss();
                     }
                 });
@@ -85,7 +85,7 @@ public class StartActivity extends AppCompatActivity {
                 btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(StartActivity.this, "Save", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(StartActivity.this, "Save", Toast.LENGTH_SHORT).show();
                         settingsDialog.dismiss();
                     }
                 });
