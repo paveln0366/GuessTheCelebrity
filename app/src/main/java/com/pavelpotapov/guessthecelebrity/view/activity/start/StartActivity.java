@@ -4,23 +4,38 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.pavelpotapov.guessthecelebrity.R;
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding;
 import com.pavelpotapov.guessthecelebrity.service.SoundService;
 import com.pavelpotapov.guessthecelebrity.util.ScreenMode;
 import com.pavelpotapov.guessthecelebrity.view.activity.game.GameActivity;
 
+import org.jetbrains.annotations.NotNull;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+
 public class StartActivity extends AppCompatActivity {
+    private InterstitialAd ad;
+    private static final String AD_TEST_ID = "ca-app-pub-3940256099942544/1033173712";
+    private static final String AD_ID = "ca-app-pub-5839831086467167/9779308908";
 
     private ActivityStartBinding binding;
     private Boolean volume = true;
@@ -41,12 +56,19 @@ public class StartActivity extends AppCompatActivity {
         binding = ActivityStartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Инициализация SDK мобильной рекламы
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NotNull InitializationStatus initializationStatus) {
+                loadAd();
+                Log.i("TAG", "The ad initialization complete");
+            }
+        });
+
         binding.btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String info = "info";
-                Intent intent = GameActivity.newIntent(StartActivity.this, info);
-                startActivity(intent);
+                showAd(ad);
             }
         });
 
@@ -96,12 +118,12 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        binding.btnVolume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: Вывести диалог с дополнительной информацией
-            }
-        });
+//        binding.btnVolume.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // TODO: Вывести диалог с дополнительной информацией
+//            }
+//        });
 
         Intent intent = new Intent(StartActivity.this, SoundService.class);
         intent.setAction("play");
@@ -129,4 +151,60 @@ public class StartActivity extends AppCompatActivity {
         intent.setAction("pause");
         startService(intent);
     }
+
+    public void loadAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this, AD_ID, adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                ad = interstitialAd;
+                Log.i("TAG", "onAdLoaded");
+
+                ad.setFullScreenContentCallback(new FullScreenContentCallback(){
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        Log.d("TAG", "The ad was dismissed.");
+                        ad = null;
+                        String info = "info";
+                        Intent intent = GameActivity.newIntent(StartActivity.this, info);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NotNull AdError adError) {
+                        Log.d("TAG", "The ad failed to show.");
+                        ad = null;
+                    }
+
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        Log.d("TAG", "The ad was shown.");
+                        ad = null;
+                    }
+                });
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                Log.i("TAG", "onAdFailedToLoad");
+                ad = null;
+            }
+        });
+    }
+
+    // Показать рекламу
+    public void showAd(InterstitialAd ad) {
+        if (ad != null) {
+            ad.show(this);
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+
+            String info = "info";
+            Intent intent = GameActivity.newIntent(StartActivity.this, info);
+            startActivity(intent);
+        }
+    }
+
+
 }

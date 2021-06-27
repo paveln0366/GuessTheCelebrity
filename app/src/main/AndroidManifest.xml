@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,6 +21,10 @@
         <activity android:name=".view.activity.game.GameActivity" />
 
         <service android:name="com.pavelpotapov.guessthecelebrity.service.SoundService" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5839831086467167~4034660655"/>
     </application>
 
 </manifest>
