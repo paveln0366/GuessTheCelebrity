@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.presenter.activity.game;
+package com.pavelpotapov.guessthecelebrity.presentation.game;
 
 public interface IGamePresenter {
     void onClickAnswer(String tag);

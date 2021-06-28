@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.view.activity.game;
+package com.pavelpotapov.guessthecelebrity.ui.game;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,12 +21,8 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.pavelpotapov.guessthecelebrity.R;
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityGameBinding;
-import com.pavelpotapov.guessthecelebrity.di.component.AppComponent;
-import com.pavelpotapov.guessthecelebrity.di.component.DaggerAppComponent;
-import com.pavelpotapov.guessthecelebrity.di.module.AppModule;
-import com.pavelpotapov.guessthecelebrity.di.module.PresenterModule;
-import com.pavelpotapov.guessthecelebrity.presenter.activity.game.GamePresenter;
-import com.pavelpotapov.guessthecelebrity.presenter.activity.game.IGamePresenter;
+import com.pavelpotapov.guessthecelebrity.presentation.game.GamePresenter;
+import com.pavelpotapov.guessthecelebrity.presentation.game.GameView;
 import com.pavelpotapov.guessthecelebrity.service.SoundService;
 import com.pavelpotapov.guessthecelebrity.util.ScreenMode;
 
@@ -36,12 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameActivity extends AppCompatActivity implements IGameActivity {
+public class GameActivity extends AppCompatActivity implements GameView {
     private AdView adView;
     private static final String AD_TEST_ID = "ca-app-pub-3940256099942544/6300978111";
     private static final String AD_ID = "ca-app-pub-5839831086467167/3140273583";
@@ -50,9 +44,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
     private ActivityGameBinding binding;
     private ArrayList<TextView> listOfAnswerButtons;
 
-    // private Contract.Presenter mPresenter;
-    @Inject
-    IGamePresenter mPresenter;
+    private GamePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +53,10 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
         setContentView(binding.getRoot());
 
 
-        // App.appComponent.inject(this);
-        AppComponent appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .presenterModule(new PresenterModule(this))
-                .build();
 
         binding.adContainerView.setVisibility(View.GONE);
         adView = new AdView(this);
-        adView.setAdUnitId(AD_ID);
+        adView.setAdUnitId(AD_TEST_ID);
         adView.setAdSize(adSize());
         binding.adContainerView.addView(adView);
         adView.setAdListener(new AdListener() {
@@ -102,8 +89,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
         listOfAnswerButtons.add(binding.button2);
         listOfAnswerButtons.add(binding.button3);
 
-        mPresenter = new GamePresenter(this);
-        mPresenter.startGame();
+        presenter = new GamePresenter(this);
+        presenter.startGame();
     }
 
     private void loadAd() {
@@ -149,12 +136,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.onDestroy();
+        presenter.onDestroy();
     }
 
     public void onClickAnswer(View button) {
         String tag = button.getTag().toString();
-        mPresenter.onClickAnswer(tag);
+        presenter.onClickAnswer(tag);
     }
 
     public static Intent newIntent(Context context, String info) {

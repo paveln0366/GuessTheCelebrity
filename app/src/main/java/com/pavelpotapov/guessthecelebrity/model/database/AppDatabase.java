@@ -6,9 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.pavelpotapov.guessthecelebrity.model.api.ApiService;
 import com.pavelpotapov.guessthecelebrity.model.database.dao.CelebrityDao;
-import com.pavelpotapov.guessthecelebrity.model.database.entity.Celebrity;
+import com.pavelpotapov.guessthecelebrity.entity.Celebrity;
 
 @Database(entities = {Celebrity.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

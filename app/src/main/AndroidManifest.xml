@@ -12,13 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GuessTheCelebrity">
-        <activity android:name="com.pavelpotapov.guessthecelebrity.view.activity.start.StartActivity">
+        <activity android:name=".ui.start.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.game.GameActivity" />
+        <activity android:name=".ui.game.GameActivity" />
 
         <service android:name="com.pavelpotapov.guessthecelebrity.service.SoundService" />
 

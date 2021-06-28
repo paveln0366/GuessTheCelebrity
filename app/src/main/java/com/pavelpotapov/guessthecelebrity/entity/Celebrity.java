@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.model.database.entity;
+package com.pavelpotapov.guessthecelebrity.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

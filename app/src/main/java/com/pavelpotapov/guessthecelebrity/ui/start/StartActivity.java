@@ -1,4 +1,4 @@
-package com.pavelpotapov.guessthecelebrity.view.activity.start;
+package com.pavelpotapov.guessthecelebrity.ui.start;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,7 +22,7 @@ import com.pavelpotapov.guessthecelebrity.R;
 import com.pavelpotapov.guessthecelebrity.databinding.ActivityStartBinding;
 import com.pavelpotapov.guessthecelebrity.service.SoundService;
 import com.pavelpotapov.guessthecelebrity.util.ScreenMode;
-import com.pavelpotapov.guessthecelebrity.view.activity.game.GameActivity;
+import com.pavelpotapov.guessthecelebrity.ui.game.GameActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -155,7 +155,7 @@ public class StartActivity extends AppCompatActivity {
     public void loadAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this, AD_ID, adRequest, new InterstitialAdLoadCallback() {
+        InterstitialAd.load(this, AD_TEST_ID, adRequest, new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 ad = interstitialAd;

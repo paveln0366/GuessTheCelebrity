@@ -1,6 +1,6 @@
 package com.pavelpotapov.guessthecelebrity.model.api;
 
-import com.pavelpotapov.guessthecelebrity.model.database.entity.Celebrity;
+import com.pavelpotapov.guessthecelebrity.entity.Celebrity;
 
 import java.util.List;
 

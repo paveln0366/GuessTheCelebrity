@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.pavelpotapov.guessthecelebrity.model.database.entity.Celebrity;
+import com.pavelpotapov.guessthecelebrity.entity.Celebrity;
 
 import java.util.List;
 
